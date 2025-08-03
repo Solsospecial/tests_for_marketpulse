@@ -225,7 +225,7 @@ def main():
 				st.markdown("<br>", unsafe_allow_html=True)
 				
 				# Checker
-				st.write(row['title])
+				st.write(row['title'])
 		
 		with tab2:
 			st.header("Data Visualizations")
