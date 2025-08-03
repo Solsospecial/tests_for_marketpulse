@@ -72,8 +72,12 @@ class NewsDataCollector:
 					except:
 						pass
 			
+				raw_title = entry.get('title', '')
+				# Clean the title by removing trailing ' - Source Name'
+				clean_title = raw_title.rsplit(' - ', 1)[0] if ' - ' in raw_title else raw_title
+				
 				article = {
-					'title': entry.get('title', ''),
+					'title': clean_title,
 					'link': entry.get('link', ''),
 					'published': entry.get('published', ''),
 					'published_date': published_date,  # Helper field for sorting
