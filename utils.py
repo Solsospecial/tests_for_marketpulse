@@ -73,9 +73,6 @@ class NewsDataCollector:
 						pass
 			
 				raw_title = entry.get('title', '')
-				if not raw_title or not isinstance(raw_title, str) or raw_title.strip() == '':
-					continue # Skip article if title is invalid or empty
-					
 				# Clean the title by removing trailing ' - Source Name'
 				clean_title = raw_title.rsplit(' - ', 1)[0] if ' - ' in raw_title else raw_title
 				
