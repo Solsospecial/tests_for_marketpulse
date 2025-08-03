@@ -209,7 +209,7 @@ def main():
 			st.header("Headlines")
 			
 			# Display headlines with sentiment
-			for _, row in df.iterrows():
+			for _, row in df.head(10).iterrows():
 				sentiment_color = {
 					'positive': 'green', 
 					'neutral': 'white',
