@@ -121,7 +121,7 @@ def main():
 	
 	# Headlines
 	st.sidebar.header("📰 Overview")
-	max_headlines = st.sidebar.text_input("Max Headlines", value=50
+	max_headlines = st.sidebar.text_input("Max Headlines", value=50,
 										  help="Input the maximum headlines to show; actual headlines displayed may be fewer than this value")
 	
 	# Visualization options
