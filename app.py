@@ -211,7 +211,7 @@ def main():
 		tab1, tab2, tab3, tab4, tab5 = st.tabs(["📰 Overview", "🎨 Visualizations", "📝 Summary", "📋 Data", "💾 Export"])
 		
 		with tab1:
-			displayable_headlines = min(max_headlines, total_articles)
+			displayable_headlines = min(max_headlines, int(total_articles))
 			st.header(f"Headlines | {displayable_headlines}")
 			
 			# Display headlines with sentiment
