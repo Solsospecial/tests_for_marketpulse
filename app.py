@@ -193,10 +193,11 @@ def main():
 			negative_pct = (sentiment_counts.get('negative', 0) / total_articles) * 100
 			st.metric("Negative %", f"{negative_pct:.1f}%")
 		
-		with col5:
-			ratio = positive_pct / negative_pct
-			st.metric("Positive-to-Negative Ratio", f"{ratio:.2f}")
-		
+		if negative_pct > 0:
+			with col5:
+				ratio = positive_pct / negative_pct
+				st.metric("Positive-to-Negative Ratio", f"{ratio:.2f}")
+			
 		with col6:
 			top_source = df['source'].value_counts().index[0] if total_articles > 0 else "N/A"
 			st.metric("Top Source", top_source)
