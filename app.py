@@ -119,6 +119,11 @@ def main():
 	keyword_filter = st.sidebar.text_input("Filter by Keywords", 
 										  help="Filter headlines containing these words; use commas to separate filter keywords")
 	
+	# Headlines
+	st.sidebar.header("📰 Overview")
+	max_headlines = st.sidebar.text_input("Max Headlines", value=50
+										  help="Input the maximum headlines to show; actual headlines displayed may be fewer than this value")
+	
 	# Visualization options
 	st.sidebar.header("🎨 Visualization")
 	exclude_words = st.sidebar.text_area("Exclude Words from WordCloud", 
@@ -203,13 +208,14 @@ def main():
 			st.metric("Top Source", top_source)
 		
 		# Tabs for different views
-		tab1, tab2, tab3, tab4, tab5 = st.tabs(["📊 Overview", "📈 Visualizations", "📝 Summary", "📋 Data", "💾 Export"])
+		tab1, tab2, tab3, tab4, tab5 = st.tabs(["📰 Overview", "🎨 Visualizations", "📝 Summary", "📋 Data", "💾 Export"])
 		
 		with tab1:
-			st.header("Headlines")
+			displayable_headlines = min(max_headlines, total_articles)
+			st.header(f"Headlines | {displayable_headlines}")
 			
 			# Display headlines with sentiment
-			for _, row in df.head(10).iterrows():
+			for _, row in df.iterrows():
 				sentiment_color = {
 					'positive': 'green', 
 					'neutral': 'white',
