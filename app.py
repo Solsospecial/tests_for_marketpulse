@@ -250,6 +250,7 @@ def main():
 			
 			# Word cloud
 			st.subheader("Word Cloud")
+			global exclude_list
 			exclude_list = [w.strip() for w in exclude_words.split(',') if w.strip()]
 			wordcloud = visualizer.create_wordcloud(df['title'].tolist(), 
 												   exclude_words=set(exclude_list),
