@@ -33,9 +33,9 @@ def generate_keyword_analysis(titles):
 	
 	# Filter out excluded words
 	if exclude_list:
-		filtered_words = [w for w in words if len(w) > 3 and w not in set(exclude_list)]
+		filtered_words = [w for w in words if len(w) > 1 and w not in set(exclude_list)]
 	else:
-		filtered_words = [w for w in words if len(w) > 3]
+		filtered_words = [w for w in words if len(w) > 1]
 	
 	word_freq = Counter(filtered_words)
 	return word_freq.most_common(20)
@@ -134,7 +134,7 @@ def main():
 	# Visualization options
 	st.sidebar.header("🎨 Visualization")
 	exclude_words = st.sidebar.text_area("Exclude Words from WordCloud and Top Keywords display", 
-										value="news, says, new, get, make, with, the, this, a, I",
+										value="news, says, new, get, make, with, the, this",
 										help="Comma-separated words to exclude")
 	
 	colormap = st.sidebar.selectbox("WordCloud Color Scheme", 
@@ -250,7 +250,7 @@ def main():
 			
 			# Word cloud
 			st.subheader("Word Cloud")
-			exclude_list = [w.strip().lower() for w in exclude_words.split(',') if w.strip()]
+			exclude_list = [w.strip() for w in exclude_words.split(',') if w.strip()]
 			wordcloud = visualizer.create_wordcloud(df['title'].tolist(), 
 												   exclude_words=set(exclude_list),
 												   colormap=colormap)
