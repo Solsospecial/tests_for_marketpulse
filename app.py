@@ -30,8 +30,15 @@ def generate_keyword_analysis(titles):
 	"""Cache keyword analysis"""
 	all_text = ' '.join(titles).lower()
 	words = re.findall(r'\b\w+\b', all_text)
-	word_freq = Counter([w for w in words if len(w) > 3])
-	return word_freq.most_common(10)
+	
+	# Filter out excluded words
+	if exclude_list:
+		filtered_words = [w for w in words if len(w) > 3 and w not in set(exclude_list)]
+	else:
+		filtered_words = [w for w in words if len(w) > 3]
+	
+	word_freq = Counter(filtered_words)
+	return word_freq.most_common(20)
 
 def main():
 	"""Main Streamlit application"""
@@ -126,8 +133,8 @@ def main():
 	
 	# Visualization options
 	st.sidebar.header("🎨 Visualization")
-	exclude_words = st.sidebar.text_area("Exclude Words from WordCloud", 
-										value="news, says, new, get, make",
+	exclude_words = st.sidebar.text_area("Exclude Words from WordCloud and Top Keywords display", 
+										value="news, says, new, get, make, with, the, this, a, I",
 										help="Comma-separated words to exclude")
 	
 	colormap = st.sidebar.selectbox("WordCloud Color Scheme", 
@@ -243,7 +250,7 @@ def main():
 			
 			# Word cloud
 			st.subheader("Word Cloud")
-			exclude_list = [w.strip() for w in exclude_words.split(',') if w.strip()]
+			exclude_list = [w.strip().lower() for w in exclude_words.split(',') if w.strip()]
 			wordcloud = visualizer.create_wordcloud(df['title'].tolist(), 
 												   exclude_words=set(exclude_list),
 												   colormap=colormap)
@@ -267,9 +274,9 @@ def main():
 				st.warning("Summary feature not available")
 			
 			# Top keywords
-			st.subheader("Top Keywords")
-			
 			top_keywords = generate_keyword_analysis(df['title'].tolist())
+			st.subheader(f"Top {len(top_keywords)} Keywords")
+			
 			keyword_df = pd.DataFrame(top_keywords, columns=['Keyword', 'Frequency'])
 			st.dataframe(keyword_df, use_container_width=True)
 		
