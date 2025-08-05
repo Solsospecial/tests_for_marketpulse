@@ -11,12 +11,14 @@ def sub_main():
 
     if not articles:
         # print("No articles found with 'canadian' in title or summary.")
+        pass # To remove
     else:
-        for article in articles:
+        # for article in articles:
             # print(f"- {article['title']}")
             # print(f"  Source: {article['source']}")
             # print(f"  Published: {article['published']}")
-
+        pass # To remove
+        
 def main():
     collector = (get_analyzers()[0])
     news = collector.collect_news_data("Andrew Tate")
