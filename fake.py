@@ -23,6 +23,10 @@ def main():
     collector = (get_analyzers()[0])
     articles = collector.collect_news_data("Andrew Tate")
     
+    for article in articles:
+        del article['summary']
+        del article['link']
+    
     df = pd.DataFrame(articles)
     
     mask = df['title'].str.lower().str.contains('|'.join(['canadian']), na=False)
