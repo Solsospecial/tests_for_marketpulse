@@ -57,7 +57,7 @@ def main():
     print(df.values.tolist())
     
     print('\n\n\n')
-    
+    """
     for _, row in df.iterrows():
         sentiment_color = {
             'Positive': 'green', 
@@ -67,7 +67,7 @@ def main():
         
         print(f"Title: {row['title']}")
         print(f"Source: {row['source']}")
-        print(f"Sentiment: {row['sentiment_label']}")
+        print(f"Sentiment: {row['sentiment_label']}")"""
 
 if __name__ == "__main__":
     main()
