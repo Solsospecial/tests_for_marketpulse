@@ -21,15 +21,8 @@ def process_sentiment_analysis(titles):
 	_, analyzer, _, _ = get_analyzers()
 	results = []
 	for title in titles:
-		if not title or pd.isna(title) or str(title).strip() == '':
-			results.append({'sentiment_label': 'null'})
-		else:
-			try:
-				sentiment = analyzer.analyze_text(title)
-				results.append(sentiment)
-			except Exception as e:
-				# Fallback to null if analysis fails for any reason
-				results.append({'sentiment_label': 'null'})
+		sentiment = analyzer.analyze_text(title)
+		results.append(sentiment)
 	return results
 
 @st.cache_data
