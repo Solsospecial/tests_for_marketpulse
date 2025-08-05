@@ -34,7 +34,7 @@ def main():
     
     results = process_sentiment_analysis(titles)
     
-    print(f'Results: {results})
+    print(f'Results: {results}')
     
     print('\n\n\n')
     
