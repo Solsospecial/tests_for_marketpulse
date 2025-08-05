@@ -21,7 +21,7 @@ def sub_main():
         
 def main():
     collector = (get_analyzers()[0])
-    news = collector.collect_news_data("Andrew Tate")
+    articles = collector.collect_news_data("Andrew Tate")
     
     df = pd.DataFrame(articles)
     
