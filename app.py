@@ -245,7 +245,7 @@ def main():
 				""", unsafe_allow_html=True)
 				st.markdown("<br>", unsafe_allow_html=True)
 				
-				st.write(row['summary'])
+				st.write(row)
 				
 		with tab2:
 			st.header("Data Visualizations")
