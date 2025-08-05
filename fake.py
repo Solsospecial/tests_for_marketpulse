@@ -65,8 +65,8 @@ def main():
                 'Negative': 'red'
             }.get(row['sentiment_label'], 'gray')
             
-            file.write(f"{_}\nTitle: {row['title']}")
-            file.write(f"Source: {row['source']}")
+            file.write(f"{_ + 1}\nTitle: {row['title']}\n")
+            file.write(f"Source: {row['source']}\n")
             file.write(f"Sentiment: {row['sentiment_label']}\n\n\n")
     
 if __name__ == "__main__":
