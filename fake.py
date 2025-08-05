@@ -1,7 +1,7 @@
-from utils import NewsDataCollector
+from app import get_analyzers
 
 def main():
-    collector = NewsDataCollector()
+    collector = (get_analyzers()[0])
     news = collector.collect_news_data("Andrew Tate")
 
     articles = [
