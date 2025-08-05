@@ -40,17 +40,17 @@ def main():
     
     results_df = pd.DataFrame(results)
     
-    print('Results DF')
+    print('Results DF\n')
     
-    results_df.head(100)
+    print(results_df.values.tolist())
     
     print('\n\n\n')
     
     df = pd.concat([df, results_df], axis=1)
     
-    print('Concat DF')
+    print('Concat DF\n')
     
-    df.head(100)
+    print(df.values.tolist())
     
     print('\n\n\n')
     
@@ -61,9 +61,9 @@ def main():
             'Negative': 'red'
         }.get(row['sentiment_label'], 'gray')
         
-        print(row['title'])
-        print(row['source'])
-        print(row['sentiment_label'])
+        print(f"Title: {row['title']}")
+        print(f"Source: {row['source']}")
+        print(f"Sentiment: {row['sentiment_label']}")
 
 if __name__ == "__main__":
     main()
