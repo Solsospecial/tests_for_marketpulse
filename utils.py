@@ -23,46 +23,9 @@ from transformers import pipeline
 import warnings
 warnings.filterwarnings('ignore')
 
-class NewsDataCollector:
-    """Handles news data collection from various RSS sources"""
-    
-    def __init__(self):
-        self.session = requests.Session()
-        self.session.headers.update({
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
-        })
-        
-    def get_google_news_url(self, query, region='US', language='en', category=None):
-        """Generate Google News RSS URL with parameters"""
-        base_url = "https://news.google.com/rss"
-        
-        if category:
-            url = f"{base_url}/headlines/section/topic/{category}?hl={language}&gl={region}&ceid={region}:{language}"
-        elif query:
-            encoded_query = requests.utils.quote(query)
-            url = f"{base_url}/search?q={encoded_query}&hl={language}&gl={region}&ceid={region}:{language}"
-        else:
-            url = f"{base_url}?hl={language}&gl={region}&ceid={region}:{language}"
-            
-        return url
-
-    def _create_cache_key(self, url, max_articles):
-        """Create a consistent cache key for RSS requests (private method)"""
-        return hashlib.md5(f"{url}_{max_articles}".encode()).hexdigest()
-    
-    def scrape_rss_feed(self, url, max_articles=50):
-        """Scrape articles from RSS feed and sort by recency"""
-        # Use module-level caching instead of instance method caching
-        return _scrape_rss_feed_cached(url, max_articles)
-    
-    def collect_news_data(self, query=None, region='US', category=None, max_articles=50):
-        """Main method to collect news data"""
-        url = self.get_google_news_url(query, region, category=category)
-        return self.scrape_rss_feed(url, max_articles)
-
-# Move cached functions to module level
-@st.cache_data(ttl=300)  # Cache for 5 minutes
-def _scrape_rss_feed_cached(url, max_articles=50):
+# Module-level cached functions (better than class method caching)
+@st.cache_data(ttl=300)
+def _scrape_rss_feed(url, max_articles=50):
     """Scrape articles from RSS feed and sort by recency"""
     try:
         feed = feedparser.parse(url)
@@ -136,79 +99,37 @@ def _scrape_rss_feed_cached(url, max_articles=50):
         st.error(f"Error scraping feed: {str(e)}")
         return []
 
-@st.cache_resource
-def load_models():
-    """Load sentiment analysis models"""
+@st.cache_data(ttl=300)
+def _analyze_sentiment_hf(text, model_name="cardiffnlp/twitter-roberta-base-sentiment-latest"):
+    """Analyze sentiment using Hugging Face model"""
     try:
-        hf_analyzer = pipeline("sentiment-analysis", 
-                              model="cardiffnlp/twitter-roberta-base-sentiment-latest")
-        return hf_analyzer, True
-    except Exception as e:
-        st.warning(f"Advanced sentiment model not available, using VADER\n\nReason:\n{e}")
-        return SentimentIntensityAnalyzer(), False
+        analyzer = pipeline("sentiment-analysis", model=model_name)
+        return analyzer(text)[0]["label"]
+    except:
+        return None
 
-@st.cache_data
-def _analyze_text_cached(text, use_hf, model_name):
-    """Cached sentiment analysis function"""
-    if use_hf:
-        try:
-            hf_analyzer, _ = load_models()
-            result = hf_analyzer(text)[0]["label"]
-            return {'sentiment_label': result}
-        except:
-            pass
-    
-    # Fallback to VADER
-    vader = SentimentIntensityAnalyzer()
-    compound_score = vader.polarity_scores(text)['compound']
-    
+@st.cache_data(ttl=300)
+def _analyze_sentiment_vader(text):
+    """Analyze sentiment using VADER"""
+    analyzer = SentimentIntensityAnalyzer()
+    compound_score = analyzer.polarity_scores(text)['compound']
     if compound_score >= 0.05:
-        label = "positive"
+        return "positive"
     elif compound_score > -0.05:
-        label = "neutral"
+        return "neutral"
     else:
-        label = "negative"
-        
-    return {'sentiment_label': label}
+        return "negative"
 
-class SentimentAnalyzer:
-    """Advanced sentiment analysis using multiple models"""
-    
-    def __init__(self):
-        self.hf_analyzer, self.use_hf = load_models()
-        if not self.use_hf:
-            self.vader = self.hf_analyzer
-        
-        # Store model info for caching
-        self.model_name = "hf" if self.use_hf else "vader"
-
-    def get_hf_sentiment_label(self, text):
-        """Convert Hugging Face model prediction to descriptive sentiment label"""
-        return self.hf_analyzer(text)[0]["label"]
-
-    def get_vader_sentiment_label(self, compound_score):
-        """Convert vader compound score to descriptive label using best practices"""
-        if compound_score >= 0.05:
-            return "positive"
-        elif compound_score > -0.05:
-            return "neutral"
-        else:
-            return "negative"
-    
-    def analyze_text(self, text):
-        """Comprehensive sentiment analysis"""
-        return _analyze_text_cached(text, self.use_hf, self.model_name)
-
-@st.cache_resource
-def load_summarizer():
-    """Load summarization model"""
+@st.cache_data(ttl=300)
+def _summarize_text(text, model_name="facebook/bart-large-cnn"):
+    """Summarize text using Hugging Face model"""
     try:
         summarizer = pipeline("summarization", 
-                            model="facebook/bart-large-cnn",
+                            model=model_name,
                             max_length=150, 
                             min_length=30,
                             do_sample=False)
-        return summarizer, True
+        return summarizer(text)[0]['summary_text']
     except:
         try:
             # Fallback to smaller model
@@ -216,69 +137,19 @@ def load_summarizer():
                                 model="sshleifer/distilbart-cnn-12-6",
                                 max_length=120,
                                 min_length=25)
-            return summarizer, True
-        except Exception as e:
-            st.warning(f"Summarization model not available\n\nReason:\n{e}")
-            return None, False
+            return summarizer(text)[0]['summary_text']
+        except:
+            return None
 
-@st.cache_data
-def _summarize_headlines_cached(headlines_tuple, model_available):
-    """Cached headline summarization"""
-    if not model_available or not headlines_tuple:
-        return "Summarization not available"
-
-    try:
-        headlines = list(headlines_tuple)  # Convert back from tuple
-        
-        # Shuffle headlines to get random selection
-        headlines_copy = headlines.copy()
-        random.shuffle(headlines_copy)
-
-        combined_text = ""
-        for headline in headlines_copy:
-            if len(combined_text) >= 1000:
-                break
-            combined_text += headline.strip() + ". "
-    
-        combined_text = combined_text.strip()
-
-        if len(combined_text) < 50:
-            return "Insufficient text for summarization"
-
-        # Limit input for summarizer
-        if len(combined_text) > 1000:
-            combined_text = combined_text[:1000]
-
-        summarizer, _ = load_summarizer()
-        summary = summarizer(combined_text)[0]['summary_text']
-        return summary
-
-    except Exception as e:
-        return f"Summarization error: {e}"
-
-class TextSummarizer:
-    """Text summarization using Hugging Face transformers"""
-
-    def __init__(self):
-        self.summarizer, self.available = load_summarizer()
-
-    def summarize_headlines(self, headlines):  
-        """Summarize a list of headlines"""
-        # Convert list to tuple for caching (lists aren't hashable)
-        headlines_tuple = tuple(sorted(headlines)) if headlines else ()
-        return _summarize_headlines_cached(headlines_tuple, self.available)
-
-@st.cache_data
-def _create_wordcloud_cached(text_tuple, exclude_words_tuple, colormap):
-    """Cached wordcloud creation"""
-    text_data = list(text_tuple)
-    exclude_words = set(exclude_words_tuple)
-    
+@st.cache_data(ttl=300)
+def _create_wordcloud_data(text_list, exclude_words_tuple=(), colormap='viridis'):
+    """Generate word cloud data (cached separately from visualization)"""
     # Clean and combine text
-    text = ' '.join(text_data).lower()
+    text = ' '.join(text_list).lower()
     text = re.sub(r'[^\w\s]', ' ', text)
     
     # Remove common words
+    exclude_words = set(exclude_words_tuple) | {'news', 'says', 'new', 'get', 'make', 'take'}
     words = [word for word in text.split() if len(word) > 1 and word not in exclude_words]
     text = ' '.join(words)
     
@@ -297,28 +168,122 @@ def _create_wordcloud_cached(text_tuple, exclude_words_tuple, colormap):
     
     return wordcloud
 
-@st.cache_data
-def _plot_sentiment_distribution_cached(sentiments_tuple):
-    """Cached sentiment distribution plotting"""
-    sentiments = list(sentiments_tuple)
-    sentiment_counts = Counter(sentiments)
+@st.cache_resource
+def _load_models():
+    """Load sentiment analysis models"""
+    try:
+        hf_analyzer = pipeline("sentiment-analysis", 
+                              model="cardiffnlp/twitter-roberta-base-sentiment-latest")
+        return hf_analyzer, True
+    except Exception as e:
+        st.warning(f"Advanced sentiment model not available, using VADER\n\nReason:\n{e}")
+        return SentimentIntensityAnalyzer(), False
+
+class NewsDataCollector:
+    """Handles news data collection from various RSS sources"""
     
-    fig = go.Figure(data=[
-        go.Bar(
-            x=list(sentiment_counts.keys()),
-            y=list(sentiment_counts.values()),
-            marker_color=['#ff4444', '#ffffff', '#00aa00']
-        )
-    ])
+    def __init__(self):
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+        })
     
-    fig.update_layout(
-        title="Sentiment Distribution",
-        xaxis_title="Sentiment",
-        yaxis_title="Count",
-        template="plotly_white"
-    )
+    def get_google_news_url(self, query, region='US', language='en', category=None):
+        """Generate Google News RSS URL with parameters"""
+        base_url = "https://news.google.com/rss"
+        
+        if category:
+            url = f"{base_url}/headlines/section/topic/{category}?hl={language}&gl={region}&ceid={region}:{language}"
+        elif query:
+            encoded_query = requests.utils.quote(query)
+            url = f"{base_url}/search?q={encoded_query}&hl={language}&gl={region}&ceid={region}:{language}"
+        else:
+            url = f"{base_url}?hl={language}&gl={region}&ceid={region}:{language}"
+            
+        return url
+
+    def _create_cache_key(self, url, max_articles):
+        """Create a consistent cache key for RSS requests"""
+        return hashlib.md5(f"{url}_{max_articles}".encode()).hexdigest()
     
-    return fig
+    def scrape_rss_feed(self, url, max_articles=50):
+        """Scrape articles from RSS feed and sort by recency"""
+        return _scrape_rss_feed(url, max_articles)
+    
+    def collect_news_data(self, query=None, region='US', category=None, max_articles=50):
+        """Main method to collect news data"""
+        url = self.get_google_news_url(query, region, category=category)
+        return self.scrape_rss_feed(url, max_articles)
+
+class SentimentAnalyzer:
+    """Advanced sentiment analysis using multiple models"""
+    
+    def __init__(self):
+        self._hf_analyzer, self._use_hf = _load_models()
+        if not self._use_hf:
+            self._vader = self._hf_analyzer
+
+    def _get_hf_sentiment_label(self, text):
+        """Convert Hugging Face model prediction to descriptive sentiment label"""
+        return self._hf_analyzer(text)[0]["label"]
+
+    def _get_vader_sentiment_label(self, compound_score):
+        """Convert vader compound score to descriptive label using best practices"""
+        if compound_score >= 0.05:
+            return "positive"
+        elif compound_score > -0.05:
+            return "neutral"
+        else:
+            return "negative"
+    
+    def analyze_text(self, text):
+        """Comprehensive sentiment analysis"""
+        # Use cached functions instead of caching instance methods
+        if self._use_hf:
+            result = _analyze_sentiment_hf(text)
+            if result:
+                return {'sentiment_label': result}
+        
+        # Fallback to VADER
+        result = _analyze_sentiment_vader(text)
+        return {'sentiment_label': result}
+
+class TextSummarizer:
+    """Text summarization using Hugging Face transformers"""
+
+    def __init__(self):
+        self._available = True
+
+    def summarize_headlines(self, headlines):  
+        """Summarize a list of headlines"""
+        if not headlines:
+            return "Summarization not available"
+    
+        try:
+            # Shuffle headlines to get random selection
+            headlines_copy = headlines.copy()
+            random.shuffle(headlines_copy)
+
+            combined_text = ""
+            for headline in headlines_copy:
+                if len(combined_text) >= 1000:
+                    break
+                combined_text += headline.strip() + ". "
+        
+            combined_text = combined_text.strip()
+
+            if len(combined_text) < 50:
+                return "Insufficient text for summarization"
+
+            # Limit input for summarizer
+            if len(combined_text) > 1000:
+                combined_text = combined_text[:1000]
+
+            summary = _summarize_text(combined_text)
+            return summary if summary else "Summarization error"
+
+        except Exception as e:
+            return f"Summarization error: {e}"
 
 class DataVisualizer:
     """Advanced data visualization for insights"""
@@ -329,18 +294,36 @@ class DataVisualizer:
     def create_wordcloud(self, text_data, exclude_words=None, colormap='viridis'):
         """Generate customizable word cloud"""
         if exclude_words is None:
-            exclude_words = {'news', 'says', 'new', 'get', 'make', 'take'}
+            exclude_words = set()
         
-        # Convert to tuples for caching
-        text_tuple = tuple(text_data) if text_data else ()
+        # Convert to tuple for caching (sets aren't hashable)
         exclude_words_tuple = tuple(sorted(exclude_words))
         
-        return _create_wordcloud_cached(text_tuple, exclude_words_tuple, colormap)
+        return _create_wordcloud_data(text_data, exclude_words_tuple, colormap)
     
-    def plot_sentiment_distribution(self, sentiments):
+    @st.cache_data
+    def plot_sentiment_distribution(_self, sentiments_tuple):
         """Create sentiment distribution bar chart"""
-        sentiments_tuple = tuple(sentiments) if sentiments else ()
-        return _plot_sentiment_distribution_cached(sentiments_tuple)
+        # Convert tuple back to list for Counter
+        sentiments = list(sentiments_tuple)
+        sentiment_counts = Counter(sentiments)
+        
+        fig = go.Figure(data=[
+            go.Bar(
+                x=list(sentiment_counts.keys()),
+                y=list(sentiment_counts.values()),
+                marker_color=['#ff4444', '#ffffff', '#00aa00']
+            )
+        ])
+        
+        fig.update_layout(
+            title="Sentiment Distribution",
+            xaxis_title="Sentiment",
+            yaxis_title="Count",
+            template="plotly_white"
+        )
+        
+        return fig
 
 class DataExporter:
     """Handle data export in multiple formats"""
