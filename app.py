@@ -15,6 +15,7 @@ def get_analyzers():
 	visualizer = DataVisualizer()
 	return collector, analyzer, summarizer, visualizer
 
+@st.cache_data
 def process_sentiment_analysis(titles):
 	"""Cache sentiment analysis results"""
 	_, analyzer, _, _ = get_analyzers()
