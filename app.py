@@ -171,7 +171,7 @@ def main():
 		
 		# Perform sentiment analysis
 		with st.spinner("Analyzing sentiment..."):
-			titles = df['title'].tolist()
+			titles = df[''].tolist()
 			sentiment_results = process_sentiment_analysis(titles)
 	
 			# Show visual progress
