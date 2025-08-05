@@ -29,10 +29,30 @@ def main():
     df = df[mask]
     
     titles = df['title'].tolist()
-    results_df = pd.DataFrame(process_sentiment_analysis(titles))
+    
     print('\n\n\n\n\n')
     
+    results = process_sentiment_analysis(titles)
+    
+    print(f'Results: {results})
+    
+    print('\n\n\n')
+    
+    results_df = pd.DataFrame(results)
+    
+    print('Results DF')
+    
+    results_df.head(100)
+    
+    print('\n\n\n')
+    
     df = pd.concat([df, results_df], axis=1)
+    
+    print('Concat DF')
+    
+    df.head(100)
+    
+    print('\n\n\n')
     
     for _, row in df.iterrows():
         sentiment_color = {
@@ -44,9 +64,6 @@ def main():
         print(row['title'])
         print(row['source'])
         print(row['sentiment_label'])
-    
-        
-
 
 if __name__ == "__main__":
     main()
