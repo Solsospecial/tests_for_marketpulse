@@ -28,7 +28,7 @@ def main():
     
     titles = df['title'].tolist()
     results = process_sentiment_analysis(titles)
-    
+    print('\n\n\n\n\n')
     print(results)
         
 
