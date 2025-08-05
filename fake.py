@@ -21,16 +21,16 @@ def sub_main():
         
 def main():
     collector = (get_analyzers()[0])
-    articles = collector.collect_news_data("Andrew Tate")
+    articles = collector.collect_news_data("Bunnies", max_articles=30)
     
     for article in articles:
         del article['summary']
         del article['link']
     
     df = pd.DataFrame(articles)
-    
+    """
     mask = df['title'].str.lower().str.contains('|'.join(['canadian']), na=False)
-    df = df[mask]
+    df = df[mask]"""
     
     titles = df['title'].tolist()
     
@@ -57,17 +57,17 @@ def main():
     print(df.values.tolist())
     
     print('\n\n\n')
-
-    for _, row in df.iterrows():
-        sentiment_color = {
-            'Positive': 'green', 
-            'Neutral': 'gray',
-            'Negative': 'red'
-        }.get(row['sentiment_label'], 'gray')
-        
-        print(f"Title: {row['title']}")
-        print(f"Source: {row['source']}")
-        print(f"Sentiment: {row['sentiment_label']}")
-
+    with open('checker.py', 'w') as file:
+        for _, row in df.iterrows():
+            sentiment_color = {
+                'Positive': 'green', 
+                'Neutral': 'gray',
+                'Negative': 'red'
+            }.get(row['sentiment_label'], 'gray')
+            
+            file.write(f"{_}\nTitle: {row['title']}")
+            file.write(f"Source: {row['source']}")
+            file.write(f"Sentiment: {row['sentiment_label']}\n\n\n")
+    
 if __name__ == "__main__":
     main()
