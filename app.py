@@ -129,7 +129,7 @@ def main():
 	# Headlines
 	st.sidebar.header("📰 Overview")
 	max_headlines = st.sidebar.text_input("Max Headlines", value=50,
-										  help="Input the maximum headlines to show; actual headlines displayed may be fewer than this value")
+										  help="Input the maximum headlines to show; if input is invalid, this will default to the total articles found if the total articles are at most 50, else this will default to 50 articles; actual headlines displayed may be fewer than your chosen value")
 	
 	# Visualization options
 	st.sidebar.header("🎨 Visualization")
@@ -221,7 +221,9 @@ def main():
 		tab1, tab2, tab3, tab4, tab5 = st.tabs(["📰 Overview", "🎨 Visualizations", "📝 Summary", "📋 Data", "💾 Export"])
 		
 		with tab1:
-			displayable_headlines = min(int(max_headlines), total_articles)
+			# Convert input to integer if it's a digit-only string (e.g., "50"); otherwise, use total_articles as fallback
+			max_headlines = int(max_headlines.strip()) if max_headlines.strip().isdigit() else total_articles
+			displayable_headlines = min(max_headlines, total_articles)
 			st.header(f"Headlines | {displayable_headlines}")
 			
 			# Display headlines with sentiment
