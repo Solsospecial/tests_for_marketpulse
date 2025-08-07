@@ -90,7 +90,7 @@ def main():
 	st.markdown("""
 	<div class="main-header">
 		<h1>📈 MarketPulse Pro</h1>
-		<p>Advanced News Analysis & Sentiment Intelligence Platform</p>
+		<p>Advanced News Analysis & Sentiment Intelligence</p>
 	</div>
 	""", unsafe_allow_html=True)
 	
