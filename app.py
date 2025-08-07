@@ -182,7 +182,7 @@ def main():
 		
 		# Add sentiment data to DataFrame
 		sentiment_df = pd.DataFrame(sentiment_results)
-		df = pd.concat([df, sentiment_df], axis=1)
+		df = pd.concat([df.reset_index(drop=True), sentiment_df.reset_index(drop=True)], axis=1)
 		
 		# Display metrics
 		col1, col2, col3, col4, col5, col6 = st.columns(6)
