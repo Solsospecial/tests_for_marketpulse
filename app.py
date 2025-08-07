@@ -214,6 +214,9 @@ def main():
 			top_source = df['source'].value_counts().index[0] if total_articles > 0 else "N/A"
 			st.metric("Top Source", top_source)
 		
+		# Capitalize the first letter of each sentiment label (e.g., 'positive' → 'Positive') before proceeding
+		df['sentiment_label'] = df['sentiment_label'].str.capitalize()
+		
 		# Tabs for different views
 		tab1, tab2, tab3, tab4, tab5 = st.tabs(["📰 Overview", "🎨 Visualizations", "📝 Summary", "📋 Data", "💾 Export"])
 		
@@ -224,9 +227,9 @@ def main():
 			# Display headlines with sentiment
 			for _, row in df.iterrows():
 				sentiment_color = {
-					'positive': 'green', 
-					'neutral': 'white',
-					'negative': 'red'
+					'Positive': 'green', 
+					'Neutral': 'white',
+					'Negative': 'red'
 				}.get(row['sentiment_label'], 'gray')
 				
 				st.markdown(f"""
@@ -237,9 +240,6 @@ def main():
 				</div>
 				""", unsafe_allow_html=True)
 				st.markdown("<br>", unsafe_allow_html=True)
-				
-		# Capitalize the first letter of each sentiment label (e.g., 'positive' → 'Positive') before proceeding
-		df['sentiment_label'] = df['sentiment_label'].str.capitalize()
 		
 		with tab2:
 			st.header("Data Visualizations")
