@@ -238,6 +238,9 @@ def main():
 				""", unsafe_allow_html=True)
 				st.markdown("<br>", unsafe_allow_html=True)
 				
+		# Capitalize the first letter of each sentiment label (e.g., 'positive' → 'Positive') before proceeding
+		df['sentiment_label'] = df['sentiment_label'].str.capitalize()
+		
 		with tab2:
 			st.header("Data Visualizations")
 			
