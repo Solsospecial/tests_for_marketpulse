@@ -73,6 +73,7 @@ class NewsDataCollector:
 					except:
 						pass
 				
+				raw_title = entry.get('title', '') # Get title from feed entry
 				# Clean the title by removing trailing ' - Source Name'
 				clean_title = raw_title.rsplit(' - ', 1)[0] if ' - ' in raw_title else raw_title
 
