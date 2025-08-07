@@ -124,7 +124,7 @@ def main():
 	# Filtering options
 	st.sidebar.header("🔍 Filtering")
 	keyword_filter = st.sidebar.text_input("Filter by Keywords", 
-										  help="Filter headlines containing these words; use commas to separate filter keywords")
+										  help="Only display headlines containing these words; use commas to separate filter keywords")
 	
 	# Headlines
 	st.sidebar.header("📰 Overview")
