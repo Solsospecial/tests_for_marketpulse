@@ -62,62 +62,36 @@ class NewsDataCollector:
 				published_date = None
 				if hasattr(entry, 'published_parsed') and entry.published_parsed:
 					try:
-						published_date_parsed = datetime(*entry.published_parsed[:6])
+						published_date = datetime(*entry.published_parsed[:6])
 					except:
 						pass
 			
 				# Fallback: try to parse published string
-				published = entry.get('published', '')
-				if not published_date_parsed and published:
+				if not published_date and entry.get('published'):
 					try:
-						published_date_parsed = parser.parse(published)
+						published_date = parser.parse(entry.published)
 					except:
 						pass
 				
-				raw_title = entry.get('title', '')
-				# Skip articles with invalid/missing titles
-				if not raw_title or pd.isna(raw_title):
-					continue
-				
 				# Clean the title by removing trailing ' - Source Name'
-				clean_title = str(raw_title.rsplit(' - ', 1)[0]).strip() if ' - ' in raw_title else str(raw_title).strip()
-				# Skip if title is empty, 'nan', 'None', or too short
-				if (not clean_title or clean_title.lower() in ['nan', 'none', 'null', ''] or len(clean_title) < 5):
-					continue
-					
-				# Get and validate source
-				source = entry.get('source', {})
-				if isinstance(source, dict):
-					source_name = source.get('title', 'Unknown')
-				else:
-					source_name = str(source).strip() if source else 'Unknown'
-				if source_name.lower() in ['nan', 'none', 'null']:
-					source_name = 'Unknown'
-					
-				# Get and validate link
-				link = entry.get('link', '')
-				link = '' if (not link or pd.isna(link)) else str(link).strip()
-				
-				# Get and validate summary
-				summary = entry.get('summary', '')
-				summary = '' if (not summary or pd.isna(summary)) else str(summary).strip()
-				
+				clean_title = raw_title.rsplit(' - ', 1)[0] if ' - ' in raw_title else raw_title
+
 				article = {
 					'title': clean_title,
-					'link': link,
-					'published': published,
-					'published_date_parsed': published_date_parsed,  # Helper field for sorting
-					'summary': summary,
-					'source': source_name
+					'link': entry.get('link', ''),
+					'published': entry.get('published', ''),
+					'published_date': published_date,  # Helper field for sorting
+					'summary': entry.get('summary', ''),
+					'source': entry.get('source', {}).get('title', 'Unknown')
 				}
 				articles.append(article)
 				
 			# Sort by published date (most recent first)
-			articles.sort(key=lambda x: x['published_date_parsed'] or datetime.min, reverse=True)
+			articles.sort(key=lambda x: x['published_date'] or datetime.min, reverse=True)
 		
 			# Remove helper field and return limited results
 			for article in articles:
-				del article['published_date_parsed']
+				del article['published_date']
 		
 			return articles[:max_articles]
 
