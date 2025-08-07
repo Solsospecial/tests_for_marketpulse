@@ -45,8 +45,8 @@ def main():
 	
 	# Page configuration
 	st.set_page_config(
-		page_title="MarketPulse Pro",
-		page_icon="📈",
+		page_title="NewsLens",
+		page_icon="🌐",
 		layout="wide",
 		initial_sidebar_state="expanded"
 	)
@@ -89,7 +89,7 @@ def main():
 	# Header
 	st.markdown("""
 	<div class="main-header">
-		<h1>📈 MarketPulse Pro</h1>
+		<h1>🌐 NewsLens</h1>
 		<p>Advanced News Analysis & Sentiment Intelligence</p>
 	</div>
 	""", unsafe_allow_html=True)
@@ -303,7 +303,7 @@ def main():
 			
 			col1, col2, col3 = st.columns(3)
 			
-			file_name = f"marketpulse_data_{datetime.utcnow().strftime('%Y%m%d_%H%M')}-UTC"
+			file_name = f"newslens_data_{datetime.utcnow().strftime('%Y%m%d_%H%M')}-UTC"
 			with col1:
 				# CSV Export
 				csv_data = DataExporter.to_csv(df)
@@ -340,7 +340,7 @@ def main():
 	st.markdown("---")
 	st.markdown("""
 	<div style="text-align: center; color: #666;">
-		<p>🚀 MarketPulse Pro - Built for Business Intelligence</p>
+		<p>🌐 NewsLens - Built for tracking media narratives in real time</p>
 		<p>Powered by Advanced NLP & Real-time Data Analysis</p>
 	</div>
 	""", unsafe_allow_html=True)
