@@ -57,7 +57,7 @@ def main():
 	.main-header {
 		text-align: center;
 		padding: 2rem 0;
-		background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+		background: linear-gradient(110deg, #d7d7d7 0%, #2e2e2e 30%, #2e2e2e 50%, #000000 100%, #000000 100%);
 		color: white;
 		margin-bottom: 2rem;
 		border-radius: 10px;
