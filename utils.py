@@ -36,11 +36,12 @@ class NewsDataCollector:
 		"""Generate Google News RSS URL with parameters"""
 		base_url = "https://news.google.com/rss"
 		
-		if category:
-			url = f"{base_url}/headlines/section/topic/{category}?hl={language}&gl={region}&ceid={region}:{language}"
-		elif query:
+		# Prioritize query over category
+		if query:
 			encoded_query = requests.utils.quote(query)
 			url = f"{base_url}/search?q={encoded_query}&hl={language}&gl={region}&ceid={region}:{language}"
+		elif category:
+			url = f"{base_url}/headlines/section/topic/{category}?hl={language}&gl={region}&ceid={region}:{language}"
 		else:
 			url = f"{base_url}?hl={language}&gl={region}&ceid={region}:{language}"
 			
