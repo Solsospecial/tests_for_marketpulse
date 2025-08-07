@@ -171,7 +171,7 @@ def main():
 		
 		# Perform sentiment analysis
 		with st.spinner("Analyzing sentiment..."):
-			titles = df[''].tolist()
+			titles = df['title'].tolist()
 			sentiment_results = process_sentiment_analysis(titles)
 	
 			# Show visual progress
@@ -237,8 +237,6 @@ def main():
 				</div>
 				""", unsafe_allow_html=True)
 				st.markdown("<br>", unsafe_allow_html=True)
-				
-				st.write(row)
 				
 		with tab2:
 			st.header("Data Visualizations")
