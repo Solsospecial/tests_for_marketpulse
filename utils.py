@@ -2,7 +2,6 @@ import streamlit as st
 import feedparser
 import requests
 import random
-import pandas as pd
 from datetime import datetime
 from dateutil import parser
 import re
@@ -60,7 +59,7 @@ class NewsDataCollector:
 			
 			for entry in feed.entries:
 				# Parse the published date for sorting
-				published_date_parsed = None
+				published_date = None
 				if hasattr(entry, 'published_parsed') and entry.published_parsed:
 					try:
 						published_date_parsed = datetime(*entry.published_parsed[:6])
