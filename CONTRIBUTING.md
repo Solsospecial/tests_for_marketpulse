@@ -22,12 +22,12 @@ ___
 Click the Fork button at the top right of the **GitHub** page.
 
 ### 2️⃣ Clone your fork
-
+```bash
 git clone https://github.com/yourusername/newsspeed.git
 cd newsspeed
-
+```
 ### 3️⃣ Create a virtual environment
-
+```bash
 # Windows
 python -m venv venv
 venv\Scripts\activate
@@ -35,19 +35,21 @@ venv\Scripts\activate
 # macOS / Linux
 python -m venv venv
 source venv/bin/activate
-
-4️⃣ Install dependencies
-
+```
+### 4️⃣ Install dependencies
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
+```
 
 ___
 
-🛠 Development Workflow
-	1.	Create a new branch
+## 🛠 Development Workflow
 
+1.	Create a new branch
+```bash
 git checkout -b feature/your-feature-name
-
+```
 
 	2.	Make your changes
 Follow the coding standards below.
