@@ -6,7 +6,7 @@ ___
 
 ## 📌 How You Can Contribute
 
-- **Bug Reports** – Found an issue? Let us know with clear steps to reproduce.
+- **Bug Reports** – Found an issue? Report it with clear steps to reproduce.
 - **Feature Requests** – Have an idea? Suggest it in the issues.
 - **Code Contributions** – Improve features, fix bugs, or add new capabilities.
 - **Documentation** – Help make (usage) guides, README, and inline docs clearer.
@@ -18,12 +18,12 @@ ___
 
 ### 1️⃣ Fork the repository
 
-Click the Fork button at the top right of the **GitHub** page.
+Click the **Fork** button at the top right of the **GitHub** page.
 
 ### 2️⃣ Clone your fork
 ```bash
 git clone https://github.com/yourusername/NewsSpeed
-cd newsspeed
+cd NewsSpeed
 ```
 ### 3️⃣ Create a virtual environment
 ```bash
