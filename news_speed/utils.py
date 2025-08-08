@@ -2,17 +2,16 @@ from collector import NewsDataCollector()
 from analyzer import SentimentAnalyzer()
 from summarizer import TextSummarizer()
 from visualizer import DataVisualizer()
-
-# Suppress warnings for cleaner output
-import warnings
-warnings.filterwarnings('ignore')
-
 import streamlit as st
 import pandas as pd
 from datetime import datetime
 import re
 from collections import Counter
 import matplotlib.pyplot as plt
+
+# Suppress warnings for cleaner output
+import warnings
+warnings.filterwarnings('ignore')
 
 @st.cache_resource
 def get_analyzers():
