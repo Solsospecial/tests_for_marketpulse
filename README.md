@@ -1,4 +1,4 @@
-# 📰 NewsSpeed
+# 🌐 NewsSpeed
 
 **Real-Time News Analysis & Sentiment Intelligence Platform**  
 *Track narratives, measure sentiment, extract insights — instantly.*
@@ -82,7 +82,7 @@ root/
 ```bash
 git clone https://github.com/yourusername/newsspeed.git
 cd newsspeed
-
+```
 2️⃣ Create & activate a virtual environment (recommended)
 
 python -m venv venv
