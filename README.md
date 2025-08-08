@@ -19,7 +19,7 @@ Built for:
 - **Media & PR analysts**
 - **Finance & investment research**
 - **Technology & industrial monitoring**
-- And anyone tracking topics in real time
+- **And anyone tracking topics in real time**
 
 ---
 
@@ -87,12 +87,12 @@ cd newsspeed
 ```
 ### 2️⃣ Create & activate a virtual environment (recommended)
 ```bash
-# Windows
 python -m venv venv
+
+# then Windows
 venv\Scripts\activate
 
-# macOS / Linux
-venv\Scripts\activate
+# or macOS / Linux
 source venv/bin/activate
 ```
 ### 3️⃣ Install dependencies
