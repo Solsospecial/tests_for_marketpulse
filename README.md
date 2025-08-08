@@ -74,6 +74,7 @@ root/
 ├── visualizer.py           # Sentiment chart & word cloud generation
 └── exporter.py             # CSV, JSON, PNG export utilities
 ```
+
 ---
 
 ## 🚀 Installation
@@ -97,8 +98,7 @@ source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
-
-⸻
+___
 
 ▶️ Usage
 
@@ -108,10 +108,9 @@ streamlit run app.py
 ```
 By default, Streamlit will launch a local server at:
 
-http://localhost:8501
+http://localhost:850
 
-
-⸻
+___
 
 ⚙️ Configuration (via Sidebar)
 	•	Search Query – Keywords to find in headlines
@@ -123,7 +122,7 @@ http://localhost:8501
 	•	Exclude Words – Ignore certain words in word cloud / top keywords
 	•	WordCloud Color Scheme – Choose visual palette
 
-⸻
+___
 
 📊 Output
 
@@ -145,7 +144,7 @@ Data Tab
 Export Tab
 	•	CSV, JSON, PNG downloads
 
-⸻
+___
 
 🧠 Technology Stack
 	•	Frontend/UI – Streamlit
@@ -156,7 +155,7 @@ Export Tab
 	•	Visualization – Plotly, Matplotlib, WordCloud
 	•	Export – CSV, JSON, PNG (word cloud image)
 
-⸻
+___
 
 ⚠️ Notes & Limitations
 	•	Model Downloads – First run will download large Hugging Face models; ensure internet access.
@@ -164,13 +163,13 @@ Export Tab
 	•	Summarization Length – Summaries are optimized for ~1000 characters of headline text.
 	•	Caching – Streamlit caching (@st.cache_data / @st.cache_resource) is used to improve performance.
 
-⸻
+___
 
 📜 License
 
 This project is licensed under the MIT License.
 
-⸻
+___
 
 📬 Contact
 
