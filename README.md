@@ -85,7 +85,7 @@ root/
 git clone https://github.com/yourusername/newsspeed.git
 cd newsspeed
 ```
-2️⃣ Create & activate a virtual environment (recommended)
+### 2️⃣ Create & activate a virtual environment (recommended)
 ```bash
 # Windows
 python -m venv venv
@@ -95,7 +95,7 @@ venv\Scripts\activate
 venv\Scripts\activate
 source venv/bin/activate
 ```
-3️⃣ Install dependencies
+### 3️⃣ Install dependencies
 ```bash
 pip install --upgrade pip
 pip install -r requirements.txt
