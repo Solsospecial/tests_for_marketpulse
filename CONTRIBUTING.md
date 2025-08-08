@@ -1,17 +1,16 @@
 # 🤝 Contributing to 🌐 **NewsSpeed**
 
-We’re excited that you want to contribute to NewsSpeed!
-This guide will help you set up your environment, follow our coding standards, and submit great pull requests.
+To contribute to **NewsSpeed**, this guide will help you set up your environment, follow the Coding Standards (down below), and submit great pull requests.
 
 ___
 
 ## 📌 How You Can Contribute
 
-- Bug Reports – Found an issue? Let us know with clear steps to reproduce.
-- Feature Requests – Have an idea? Suggest it in the issues.
-- Code Contributions – Improve features, fix bugs, or add new capabilities.
-- Documentation – Help make our guides, README, and inline docs clearer.
-- Testing – Write or enhance test cases to ensure quality.
+- **Bug Reports** – Found an issue? Let us know with clear steps to reproduce.
+- **Feature Requests** – Have an idea? Suggest it in the issues.
+- **Code Contributions** – Improve features, fix bugs, or add new capabilities.
+- **Documentation** – Help make (usage) guides, README, and inline docs clearer.
+- **Testing** – Write or enhance test cases to ensure quality.
 
 ___
 
@@ -23,7 +22,7 @@ Click the Fork button at the top right of the **GitHub** page.
 
 ### 2️⃣ Clone your fork
 ```bash
-git clone https://github.com/yourusername/newsspeed.git
+git clone https://github.com/yourusername/NewsSpeed
 cd newsspeed
 ```
 ### 3️⃣ Create a virtual environment
