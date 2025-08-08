@@ -84,13 +84,13 @@ git clone https://github.com/yourusername/newsspeed.git
 cd newsspeed
 ```
 2️⃣ Create & activate a virtual environment (recommended)
-
+```bash
 python -m venv venv
 # Windows
 venv\Scripts\activate
 # macOS / Linux
 source venv/bin/activate
-
+```
 3️⃣ Install dependencies
 
 pip install --upgrade pip
