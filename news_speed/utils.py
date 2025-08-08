@@ -33,7 +33,7 @@ def process_sentiment_analysis(titles):
 	return results
 
 @st.cache_data
-def generate_keyword_analysis(titles):
+def generate_keyword_analysis(titles, exclude_list):
 	"""Cache keyword analysis"""
 	all_text = ' '.join(titles).lower()
 	words = re.findall(r'\b\w+\b', all_text)
