@@ -85,26 +85,27 @@ cd newsspeed
 ```
 2️⃣ Create & activate a virtual environment (recommended)
 ```bash
-python -m venv venv
 # Windows
-venv\Scripts\activate
+python -m venv venv
+
 # macOS / Linux
+venv\Scripts\activate
 source venv/bin/activate
 ```
 3️⃣ Install dependencies
-
+```bash
 pip install --upgrade pip
 pip install -r requirements.txt
-
+```
 
 ⸻
 
 ▶️ Usage
 
 Run the Streamlit app:
-
+```bash
 streamlit run app.py
-
+```
 By default, Streamlit will launch a local server at:
 
 http://localhost:8501
