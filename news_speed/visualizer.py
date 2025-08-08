@@ -38,7 +38,7 @@ class DataVisualizer:
 			height=400, 
 			background_color='white',
 			colormap=colormap,
-			max_words=50,
+			max_words=100,
 			relative_scaling=0.5,
 			random_state=42
 		).generate(text)
