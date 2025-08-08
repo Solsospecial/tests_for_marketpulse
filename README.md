@@ -61,7 +61,7 @@ Built for:
 ---
 
 ## 📂 Project Structure
-
+```bash
 root/
 ├── app.py                     # Main Streamlit application entry point
 ├── requirements.txt           # Python dependencies
@@ -73,7 +73,7 @@ root/
 ├── summarizer.py           # AI headline summarization
 ├── visualizer.py           # Sentiment chart & word cloud generation
 └── exporter.py             # CSV, JSON, PNG export utilities
-
+```
 ---
 
 ## 🚀 Installation
