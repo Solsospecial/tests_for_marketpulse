@@ -6,6 +6,7 @@ This guide will help you set up your environment, follow our coding standards, a
 ___
 
 ## 📌 How You Can Contribute
+
 - Bug Reports – Found an issue? Let us know with clear steps to reproduce.
 - Feature Requests – Have an idea? Suggest it in the issues.
 - Code Contributions – Improve features, fix bugs, or add new capabilities.
@@ -16,7 +17,7 @@ ___
 
 ## 🚀 Getting Started
 
-1️⃣ ### Fork the repository
+### 1️⃣ Fork the repository
 
 Click the Fork button at the top right of the **GitHub** page.
 
