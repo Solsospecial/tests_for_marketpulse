@@ -61,6 +61,7 @@ Built for:
 ---
 
 ## 📂 Project Structure
+
 ```bash
 root/
 ├── app.py                     # Main Streamlit application entry point
@@ -113,55 +114,58 @@ http://localhost:850
 ___
 
 ## ⚙️ Configuration (via Sidebar)
-	•	Search Query – Keywords to find in headlines
-	•	Region – Geographical focus (US, UK, CA, AU, NG, IN, DE, FR)
-	•	Category – General, Business, Technology, Health, Science, Sports
-	•	Max Articles – Limit on fetched articles (10–100)
-	•	Filter by Keywords – Comma-separated list to filter results
-	•	Max Headlines – Limit displayed headlines in Overview tab
-	•	Exclude Words – Ignore certain words in word cloud / top keywords
-	•	WordCloud Color Scheme – Choose visual palette
+
+-	Search Query – Keywords to find in headlines
+-	Region – Geographical focus (US, UK, CA, AU, NG, IN, DE, FR)
+-	Category – General, Business, Technology, Health, Science, Sports
+-	Max Articles – Limit on fetched articles (10–100)
+-	Filter by Keywords – Comma-separated list to filter results
+-	Max Headlines – Limit displayed headlines in Overview tab
+-	Exclude Words – Ignore certain words in word cloud / top keywords
+-	WordCloud Color Scheme – Choose visual palette
 
 ___
 
 ## 📊 Output
 
-Overview Tab
-	•	Headlines with source and sentiment label
-	•	Sentiment metrics: Total articles, % Positive/Neutral/Negative, Ratio, Top source
+- Overview Tab
+  - Headlines with source and sentiment label
+  - Sentiment metrics: Total articles, % Positive/Neutral/Negative, Ratio, Top source
 
-Visualizations Tab
-	•	Sentiment distribution bar chart
-	•	Word cloud of most common headline words
+- Visualizations Tab
+  - Sentiment distribution bar chart
+  - Word cloud of most common headline words
 
-Summary Tab
-	•	AI-generated narrative
-	•	Top keywords with frequency table
+- Summary Tab
+  - AI-generated narrative
+  - Top keywords with frequency table
 
-Data Tab
-	•	Filterable raw dataset with selectable columns
+- Data Tab
+  - Filterable raw dataset with selectable columns
 
-Export Tab
-	•	CSV, JSON, PNG downloads
+- Export Tab
+  - CSV, JSON, PNG downloads
 
 ___
 
 ## 🧠 Technology Stack
-	•	Frontend/UI – Streamlit
-	•	Data Handling – Pandas
-	•	News Source – Google News RSS (via feedparser & requests)
-	•	Sentiment Analysis – Hugging Face Transformers, VADER Sentiment
-	•	Summarization – Hugging Face Transformers (BART models)
-	•	Visualization – Plotly, Matplotlib, WordCloud
-	•	Export – CSV, JSON, PNG (word cloud image)
+
+- Frontend/UI – Streamlit
+- Data Handling – Pandas
+- News Source – Google News RSS (via feedparser & requests)
+- Sentiment Analysis – Hugging Face Transformers, VADER Sentiment
+- Summarization – Hugging Face Transformers (BART models)
+- Visualization – Plotly, Matplotlib, WordCloud
+- Export – CSV, JSON, PNG (word cloud image)
 
 ___
 
 ## ⚠️ Notes & Limitations
-	•	Model Downloads – First run will download large Hugging Face models; ensure internet access.
-	•	Rate Limits – Google News RSS scraping may be subject to request frequency limitations.
-	•	Summarization Length – Summaries are optimized for ~1000 characters of headline text.
-	•	Caching – Streamlit caching (@st.cache_data / @st.cache_resource) is used to improve performance.
+
+- Model Downloads – First run will download large Hugging Face models; ensure internet access.
+- Rate Limits – Google News RSS scraping may be subject to request frequency limitations.
+- Summarization Length – Summaries are optimized for ~1000 characters of headline text.
+- Caching – Streamlit caching (@st.cache_data / @st.cache_resource) is used to improve performance.
 
 ___
 
