@@ -1,4 +1,4 @@
-# 🤝 Contributing to **NewsSpeed**
+# 🤝 Contributing to 🌐 **NewsSpeed**
 
 We’re excited that you want to contribute to NewsSpeed!
 This guide will help you set up your environment, follow our coding standards, and submit great pull requests.
