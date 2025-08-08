@@ -9,19 +9,6 @@ from collections import Counter
 from io import BytesIO
 import hashlib
 
-# Visualization libraries
-import matplotlib.pyplot as plt
-from wordcloud import WordCloud
-import plotly.graph_objects as go
-
-# NLP libraries
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from transformers import pipeline
-
-# Suppress warnings for cleaner output
-import warnings
-warnings.filterwarnings('ignore')
-
 @st.cache_resource
 def load_summarizer():
 	"""Load summarization model"""
@@ -44,6 +31,7 @@ def load_summarizer():
 			st.warning(f"Summarization model not available\n\nReason:\n{e}")
 			return None, False
 
+# Summarize news headlines
 class TextSummarizer:
 	"""Text summarization using Hugging Face transformers"""
 
