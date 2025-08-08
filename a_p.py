@@ -7,13 +7,10 @@ import matplotlib.pyplot as plt
 from news_speed.utils import get_analyzers, process_sentiment_analysis, generate_keyword_analysis
 from news_speed.exporter import DataExporter
 
-"""
-Main function for the NewsSpeed application.
-
-Sets up the Streamlit interface, collects and filters news articles,
-performs sentiment and keyword analysis, generates visualizations,
-and provides data export options.
-"""
+# Main function for the NewsSpeed application.
+# Sets up the Streamlit interface, collects and filters news articles,
+# performs sentiment and keyword analysis, generates visualizations,
+# and provides data export options.
 def main():
 	"""Main Streamlit application"""
 	
