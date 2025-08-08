@@ -4,8 +4,8 @@ from datetime import datetime
 import re
 from collections import Counter
 import matplotlib.pyplot as plt
-from utils import get_analyzers, process_sentiment_analysis, generate_keyword_analysis
-from exporter import DataExporter
+from news_speed.utils import get_analyzers, process_sentiment_analysis, generate_keyword_analysis
+from news_speed.exporter import DataExporter
 
 """
 Main function for the NewsSpeed application.
