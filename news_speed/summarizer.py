@@ -8,6 +8,7 @@ import re
 from collections import Counter
 from io import BytesIO
 import hashlib
+from transformers import pipeline
 
 @st.cache_resource
 def load_summarizer():
