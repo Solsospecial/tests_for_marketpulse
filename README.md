@@ -1,4 +1,4 @@
-# 🌐 NewsSpeed
+# 🌐 **NewsSpeed**
 
 **Real-Time News Analysis & Sentiment Intelligence Platform**  
 *Track narratives, measure sentiment, extract insights — instantly.*
