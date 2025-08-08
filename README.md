@@ -100,7 +100,7 @@ pip install -r requirements.txt
 ```
 ___
 
-▶️ Usage
+## ▶️ Usage
 
 Run the Streamlit app:
 ```bash
@@ -112,7 +112,7 @@ http://localhost:850
 
 ___
 
-⚙️ Configuration (via Sidebar)
+## ⚙️ Configuration (via Sidebar)
 	•	Search Query – Keywords to find in headlines
 	•	Region – Geographical focus (US, UK, CA, AU, NG, IN, DE, FR)
 	•	Category – General, Business, Technology, Health, Science, Sports
@@ -124,7 +124,7 @@ ___
 
 ___
 
-📊 Output
+## 📊 Output
 
 Overview Tab
 	•	Headlines with source and sentiment label
@@ -146,7 +146,7 @@ Export Tab
 
 ___
 
-🧠 Technology Stack
+## 🧠 Technology Stack
 	•	Frontend/UI – Streamlit
 	•	Data Handling – Pandas
 	•	News Source – Google News RSS (via feedparser & requests)
@@ -157,7 +157,7 @@ ___
 
 ___
 
-⚠️ Notes & Limitations
+## ⚠️ Notes & Limitations
 	•	Model Downloads – First run will download large Hugging Face models; ensure internet access.
 	•	Rate Limits – Google News RSS scraping may be subject to request frequency limitations.
 	•	Summarization Length – Summaries are optimized for ~1000 characters of headline text.
@@ -165,13 +165,13 @@ ___
 
 ___
 
-📜 License
+## 📜 License
 
 This project is licensed under the MIT License.
 
 ___
 
-📬 Contact
+## 📬 Contact
 
 For inquiries, feature requests, or business usage:
 Email: # Placeholder
