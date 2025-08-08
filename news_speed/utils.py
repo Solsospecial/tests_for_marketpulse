@@ -1,8 +1,7 @@
-from collector import
-from analyzer import
-from summarizer import
-from visualizer import
-from exporter import
+from collector import NewsDataCollector()
+from analyzer import SentimentAnalyzer()
+from summarizer import TextSummarizer()
+from visualizer import DataVisualizer()
 
 # Suppress warnings for cleaner output
 import warnings
