@@ -173,6 +173,7 @@ ___
 
 ## 📬 Contact
 
-For inquiries, feature requests, or business usage:
+### For inquiries or feature requests:
+
 Email: # Placeholder
 LinkedIn: # Placeholder
