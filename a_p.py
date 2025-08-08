@@ -227,7 +227,6 @@ def main():
 			# Word cloud
 			st.subheader("Word Cloud")
 			
-			global exclude_list
 			exclude_list = [w.strip() for w in exclude_words.split(',') if w.strip()]
 			wordcloud = visualizer.create_wordcloud(df['title'].tolist(), 
 												   exclude_words=set(exclude_list),
@@ -252,7 +251,7 @@ def main():
 				st.warning("Summary feature not available")
 			
 			# Top keywords
-			top_keywords = generate_keyword_analysis(df['title'].tolist())
+			top_keywords = generate_keyword_analysis(df['title'].tolist(), exclude_list)
 			st.subheader(f"Top {len(top_keywords)} Keywords")
 			
 			keyword_df = pd.DataFrame(top_keywords, columns=['Keyword', 'Frequency'])
