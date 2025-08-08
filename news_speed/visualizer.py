@@ -14,14 +14,6 @@ import matplotlib.pyplot as plt
 from wordcloud import WordCloud
 import plotly.graph_objects as go
 
-# NLP libraries
-from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
-from transformers import pipeline
-
-# Suppress warnings for cleaner output
-import warnings
-warnings.filterwarnings('ignore')
-
 class DataVisualizer:
 	"""Advanced data visualization for insights"""
 	
