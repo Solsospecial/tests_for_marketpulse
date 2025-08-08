@@ -174,6 +174,5 @@ ___
 ## 📬 Contact
 
 ### For inquiries or feature requests:
-
-Email: # Placeholder
-LinkedIn: # Placeholder
+- Email: # Placeholder
+- LinkedIn: # Placeholder
