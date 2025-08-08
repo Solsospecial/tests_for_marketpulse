@@ -21,12 +21,12 @@ ___
 
 Click the Fork button at the top right of the **GitHub** page.
 
-2️⃣ ### Clone your fork
+### 2️⃣ Clone your fork
 
 git clone https://github.com/yourusername/newsspeed.git
 cd newsspeed
 
-3️⃣ Create a virtual environment
+### 3️⃣ Create a virtual environment
 
 # Windows
 python -m venv venv
