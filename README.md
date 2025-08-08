@@ -100,6 +100,7 @@ source venv/bin/activate
 pip install --upgrade pip
 pip install -r requirements.txt
 ```
+
 ___
 
 ## ▶️ Usage
@@ -109,7 +110,6 @@ Run the Streamlit app:
 streamlit run app.py
 ```
 By default, Streamlit will launch a local server at:
-
 http://localhost:850
 
 ___
