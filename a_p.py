@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
 from datetime import datetime
-import re
-from collections import Counter
 import matplotlib.pyplot as plt
 from news_speed.utils import get_analyzers, process_sentiment_analysis, generate_keyword_analysis
 from news_speed.exporter import DataExporter

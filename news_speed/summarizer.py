@@ -1,13 +1,5 @@
 import streamlit as st
-import feedparser
-import requests
 import random
-from datetime import datetime
-from dateutil import parser
-import re
-from collections import Counter
-from io import BytesIO
-import hashlib
 from transformers import pipeline
 
 @st.cache_resource

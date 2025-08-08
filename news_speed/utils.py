@@ -3,11 +3,8 @@ from .analyzer import SentimentAnalyzer
 from .summarizer import TextSummarizer
 from .visualizer import DataVisualizer
 import streamlit as st
-import pandas as pd
-from datetime import datetime
 import re
 from collections import Counter
-import matplotlib.pyplot as plt
 
 # Suppress warnings for cleaner output
 import warnings

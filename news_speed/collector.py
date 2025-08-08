@@ -1,12 +1,8 @@
 import streamlit as st
 import feedparser
 import requests
-import random
 from datetime import datetime
 from dateutil import parser
-import re
-from collections import Counter
-from io import BytesIO
 import hashlib
 
 # Collect news data from the Google News RSS feed
