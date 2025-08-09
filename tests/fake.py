@@ -1,4 +1,4 @@
-from app import get_analyzers, process_sentiment_analysis
+from .app import get_analyzers, process_sentiment_analysis
 import pandas as pd
 
 def sub_main():

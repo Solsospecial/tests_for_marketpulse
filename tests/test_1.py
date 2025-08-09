@@ -1,4 +1,4 @@
-from utils import SentimentAnalyzer
+from .utils import SentimentAnalyzer
 import sys
 
 analyzer = SentimentAnalyzer()
