@@ -57,7 +57,7 @@ def main():
     print(df.values.tolist())
     
     print('\n\n\n')
-    with open('checker.py', 'w') as file:
+    with open('checker.txt', 'w') as file:
         for _, row in df.iterrows():
             sentiment_color = {
                 'Positive': 'green', 
