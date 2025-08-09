@@ -87,13 +87,14 @@ cd newsspeed
 ```
 ### 2️⃣ Create & activate a virtual environment (recommended)
 ```bash
-python -m venv venv
+# create (for example, a virtual environment named myenv)
+python -m venv myenv
 
-# then Windows
-venv\Scripts\activate
+# activate (Windows)
+myenv\Scripts\activate
 
-# or macOS / Linux
-source venv/bin/activate
+# or activate (macOS / Linux)
+source myenv/bin/activate
 ```
 ### 3️⃣ Install dependencies
 ```bash
