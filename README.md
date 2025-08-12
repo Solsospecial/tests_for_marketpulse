@@ -62,7 +62,7 @@ Built for:
 
 ## 📂 Project Structure
 
-```bash
+```plaintext
 root/
 ├── app.py                     # Main Streamlit application entry point
 ├── requirements.txt           # Python dependencies
