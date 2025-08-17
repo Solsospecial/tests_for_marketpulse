@@ -14,20 +14,18 @@ class DataVisualizer:
 		plt.style.use('seaborn-v0_8')
 
 	@st.cache_data
-	def create_wordcloud(_self, text_data, exclude_words=None, colormap='viridis'):
+	def create_wordcloud(_self, text_data, exclude_words, colormap='viridis'):
 		"""Generate customizable word cloud"""
-		if exclude_words is None:
-			exclude_words = set(['news', 'says', 'new', 'get', 'make', 'take'])
 		
 		# Convert set to sorted list for consistent caching
-		exclude_words = sorted(list(exclude_words))
+		exclude_words = sorted(list(exclude_words)) if exclude_words else [] 
 		
 		# Clean and combine text
 		text = ' '.join(text_data).lower()
-		text = re.sub(r'[^\w\s]', ' ', text)
+		text = re.sub(r'[^\w\s-]', ' ', text)
 		
 		# Remove common words
-		words = [word for word in text.split() if len(word) > 1 and word not in exclude_words]
+		words = [word for word in text.split() if len(word) > 3 and word not in exclude_words]
 		text = ' '.join(words)
 		
 		if not text.strip():
@@ -40,7 +38,8 @@ class DataVisualizer:
 			colormap=colormap,
 			max_words=100,
 			relative_scaling=0.5,
-			random_state=42
+			random_state=42,
+			regexp=r'\b(?!\d+\b)[\w-]+\b'  # Allow hyphens, strip pure numbers
 		).generate(text)
 		
 		return wordcloud
