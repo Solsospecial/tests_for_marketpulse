@@ -225,7 +225,7 @@ def main():
 			# Word cloud
 			st.subheader("Word Cloud")
 			
-			exclude_list = [w.strip() for w in exclude_words.split(',') if w.strip()]
+			exclude_list = list(set([w.strip().lower() for w in exclude_words.split(',') if w.strip()]))
 			wordcloud = visualizer.create_wordcloud(df['title'].tolist(), 
 												   exclude_words=set(exclude_list),
 												   colormap=colormap)
