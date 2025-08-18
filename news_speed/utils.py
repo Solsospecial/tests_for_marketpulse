@@ -37,7 +37,7 @@ def generate_keyword_analysis(titles, exclude_list):
 	
 	# Filter out excluded words
 	if exclude_list:
-		filtered_words = [w for w in words if len(w) > 3 and w not in set(exclude_list)]
+		filtered_words = [w for w in words if len(w) > 3 and w not in exclude_list]
 	else:
 		filtered_words = [w for w in words if len(w) > 3]
 	
