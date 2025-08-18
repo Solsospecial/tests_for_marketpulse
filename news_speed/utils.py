@@ -30,14 +30,14 @@ def process_sentiment_analysis(titles):
 	return results
 
 @st.cache_data
-def generate_keyword_analysis(titles, exclude_list):
+def generate_keyword_analysis(titles, exclude_words):
 	"""Cache keyword analysis"""
 	all_text = ' '.join(titles).lower()
 	words = re.findall(r'\b\w+\b', all_text)
 	
 	# Filter out excluded words
-	if exclude_list:
-		filtered_words = [w for w in words if len(w) > 3 and w not in exclude_list]
+	if exclude_words:
+		filtered_words = [w for w in words if len(w) > 3 and w not in exclude_words]
 	else:
 		filtered_words = [w for w in words if len(w) > 3]
 	
